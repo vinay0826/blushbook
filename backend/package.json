@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon src/server.js",
     "start": "node src/server.js",
-    "migrate": "node migrations/001_init_collections.js && node migrations/002_review_feed_indexes.js"
+    "migrate": "node migrations/001_init_collections.js && node migrations/002_review_feed_indexes.js && node migrations/003_add_comments_follows.js"
   },
   "dependencies": {
     "bcryptjs": "^3.0.3",

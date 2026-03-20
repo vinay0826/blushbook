@@ -1,5 +1,3 @@
-import { motion } from "framer-motion";
-
 const FLOW_STEPS = [
   "Open landing page and understand platform intent",
   "Sign in or create account to enter personal workspace",
@@ -59,12 +57,7 @@ function WindowFrame({ title, children }) {
 export default function BlueprintPage() {
   return (
     <main className="blueprint-wrap">
-      <motion.article
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.35 }}
-        className="blueprint-poster"
-      >
+      <article className="blueprint-poster fade-in">
         <div className="wire-shape wire-shape-circle" aria-hidden="true" />
         <div className="wire-shape wire-shape-square" aria-hidden="true" />
         <div className="wire-shape wire-shape-diamond" aria-hidden="true" />
@@ -145,9 +138,9 @@ export default function BlueprintPage() {
           <div className="wire-screen-grid">
             <WindowFrame title="home">
               <div className="wire-stack-sm">
-                <div className="wire-line w-1/2" />
-                <div className="wire-line w-full" />
-                <div className="wire-line w-[85%]" />
+                <div className="wire-line wire-line-half" />
+                <div className="wire-line wire-line-full" />
+                <div className="wire-line wire-line-wide" />
               </div>
               <div className="wire-btn-row">
                 <span className="wire-btn">Login</span>
@@ -157,11 +150,11 @@ export default function BlueprintPage() {
 
             <WindowFrame title="auth">
               <div className="wire-stack-sm">
-                <div className="wire-line w-[38%]" />
+                <div className="wire-line wire-line-short" />
                 <div className="wire-input-line" />
                 <div className="wire-input-line" />
                 <div className="wire-input-line" />
-                <span className="wire-btn w-full text-center">Continue</span>
+                <span className="wire-btn wire-btn-full">Continue</span>
               </div>
             </WindowFrame>
 
@@ -259,7 +252,7 @@ export default function BlueprintPage() {
             </ul>
           </Panel>
         </div>
-      </motion.article>
+      </article>
     </main>
   );
 }

@@ -1,8 +1,12 @@
 import cors from "cors";
 import express from "express";
 import authRoutes from "./routes/authRoutes.js";
+import chatRoutes from "./routes/chatRoutes.js";
+import commentRoutes from "./routes/commentRoutes.js";
+import followRoutes from "./routes/followRoutes.js";
 import reviewRoutes from "./routes/reviewRoutes.js";
 import shelfRoutes from "./routes/shelfRoutes.js";
+import userRoutes from "./routes/userRoutes.js";
 import { errorHandler, notFoundHandler } from "./middleware/errorHandler.js";
 import { env } from "./config/env.js";
 
@@ -25,8 +29,12 @@ export function createApp() {
   });
 
   app.use("/api/auth", authRoutes);
+  app.use("/api/chats", chatRoutes);
+  app.use("/api/comments", commentRoutes);
+  app.use("/api/follows", followRoutes);
   app.use("/api/reviews", reviewRoutes);
   app.use("/api/shelf", shelfRoutes);
+  app.use("/api/users", userRoutes);
 
   app.use(notFoundHandler);
   app.use(errorHandler);

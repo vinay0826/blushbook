@@ -56,6 +56,18 @@ export const reviewApi = {
     );
     return apiRequest(`/reviews${query.toString() ? `?${query.toString()}` : ""}`);
   },
+  listByUser: (userId, params = {}) => {
+    const query = new URLSearchParams(
+      Object.entries(params).reduce((acc, [key, value]) => {
+        if (value === undefined || value === null || value === "") return acc;
+        acc[key] = String(value);
+        return acc;
+      }, {})
+    );
+    return apiRequest(
+      `/reviews/user/${userId}${query.toString() ? `?${query.toString()}` : ""}`
+    );
+  },
   listMine: (params = {}) => {
     const query = new URLSearchParams(
       Object.entries(params).reduce((acc, [key, value]) => {
@@ -71,10 +83,47 @@ export const reviewApi = {
       method: "POST",
       body: JSON.stringify(payload)
     }),
+  getById: (reviewId) => apiRequest(`/reviews/${reviewId}`),
   like: (reviewId) =>
     apiRequest(`/reviews/${reviewId}/like`, {
       method: "PATCH"
+    }),
+  repost: (reviewId) =>
+    apiRequest(`/reviews/${reviewId}/repost`, {
+      method: "POST"
+    }),
+  remove: (reviewId) =>
+    apiRequest(`/reviews/${reviewId}`, {
+      method: "DELETE"
     })
+};
+
+export const commentApi = {
+  list: (reviewId) => apiRequest(`/reviews/${reviewId}/comments`),
+  create: (reviewId, payload) =>
+    apiRequest(`/reviews/${reviewId}/comments`, {
+      method: "POST",
+      body: JSON.stringify(payload)
+    }),
+  listMine: () => apiRequest("/comments/mine")
+};
+
+export const followApi = {
+  get: (userId) => apiRequest(`/follows/${userId}`),
+  listFollowers: (userId) => apiRequest(`/follows/${userId}/followers`),
+  listFollowing: (userId) => apiRequest(`/follows/${userId}/following`),
+  toggle: (userId) =>
+    apiRequest(`/follows/${userId}`, {
+      method: "POST"
+    })
+};
+
+export const userApi = {
+  get: (userId) => apiRequest(`/users/${userId}`),
+  search: (term) => {
+    const query = new URLSearchParams({ search: term });
+    return apiRequest(`/users?${query.toString()}`);
+  }
 };
 
 export const shelfApi = {
@@ -87,5 +136,26 @@ export const shelfApi = {
   remove: (id) =>
     apiRequest(`/shelf/${id}`, {
       method: "DELETE"
+    })
+};
+
+export const chatApi = {
+  list: () => apiRequest("/chats"),
+  listWith: (userId, params = {}) => {
+    const query = new URLSearchParams(
+      Object.entries(params).reduce((acc, [key, value]) => {
+        if (value === undefined || value === null || value === "") return acc;
+        acc[key] = String(value);
+        return acc;
+      }, {})
+    );
+    return apiRequest(
+      `/chats/with/${userId}${query.toString() ? `?${query.toString()}` : ""}`
+    );
+  },
+  send: (userId, payload) =>
+    apiRequest(`/chats/with/${userId}`, {
+      method: "POST",
+      body: JSON.stringify(payload)
     })
 };
