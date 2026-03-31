@@ -12,16 +12,7 @@ import { env } from "./config/env.js";
 
 export function createApp() {
   const app = express();
-  const allowedOrigins = env.corsOrigin
-    .split(",")
-    .map((origin) => origin.trim())
-    .filter(Boolean);
-
-  app.use(
-    cors({
-      origin: allowedOrigins.includes("*") ? true : allowedOrigins
-    })
-  );
+  app.use(cors({ origin: true }));
   app.use(express.json());
 
   app.get("/api/health", (req, res) => {
